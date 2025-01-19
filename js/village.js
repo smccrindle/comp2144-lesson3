@@ -62,7 +62,6 @@ const createScene = async function() {
     // boxMat.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/floor.png");
     boxMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/semihouse.png");
     box.material = boxMat;
-
     // STEP 12a: Change the texture above to use an image with doors and windows instead
     
     // STEP 8a: Build a roof - using a cylinder mesh
@@ -96,7 +95,7 @@ const createScene = async function() {
         floorMeshes: [ground],
         optionalFeatures: true
     });
-    
+
     // Return the scene
     return scene;
 };
@@ -105,13 +104,10 @@ createScene().then((sceneToRender) => {
     engine.runRenderLoop(() => sceneToRender.render());
 });
 
-// Call the createScene function
-// const scene = createScene();
-// Use the runRenderLoop() method to render the scene repeatedly
-// engine.runRenderLoop(function(){
-//     scene.render();
-// });
 // Add an event listener that adapts to the user resizing the screen
 window.addEventListener("resize", function() {
     engine.resize();
 });
+
+// Thanks to FireDragonGameStudio (https://www.youtube.com/watch?v=8tFUmc7LGqM) for the promise with createScene() that finally got the WebXR session to work
+// Lesson adapted from "Getting Started - Chapter 2 - Build A Village" (https://doc.babylonjs.com/features/introductionToFeatures/chap2/)
