@@ -3,7 +3,7 @@ const canvas = document.getElementById("renderCanvas");
 // Create the BABYON 3D engine, and attach it to the canvas
 const engine = new BABYLON.Engine(canvas, true);
 // The createScene function
-const createScene = function() {
+const createScene = async function() {
     // Create a new BABYLON scene, passing in the engine as an argument
     const scene = new BABYLON.Scene(engine);
     
@@ -92,18 +92,25 @@ const createScene = function() {
     // const xrHelper = await scene.createDefaultXRExperienceAsync();
     // STEP 14b: Set the above createScene() function to async (important, or this will not work)
     // Initialize XR experience with default experience helper.
-
+    const xr = await scene.createDefaultXRExperienceAsync({
+        floorMeshes: [ground],
+        optionalFeatures: true
+    })
     // Return the scene
     return scene;
 };
 
+createScene().then((sceneToRender) => {
+    engine.runRenderLoop(() => sceneToRender.render());
+});
+
 // Call the createScene function
-const scene = createScene();
+// const scene = createScene();
 // Use the runRenderLoop() method to render the scene repeatedly
-engine.runRenderLoop(function(){
-    scene.render();
-})
+// engine.runRenderLoop(function(){
+//     scene.render();
+// });
 // Add an event listener that adapts to the user resizing the screen
 window.addEventListener("resize", function() {
     engine.resize();
-})
+});
