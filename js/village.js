@@ -87,15 +87,28 @@ const createScene = async function() {
     const house = BABYLON.Mesh.MergeMeshes([box, roof], true, false, null, false, true);
 
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
-    // const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, { loop: true, autoplay: true });
+    const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, { loop: true, autoplay: true });
     
     // STEP 14a: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
-    const xrHelper = await scene.createDefaultXRExperienceAsync();
+    // const xrHelper = await scene.createDefaultXRExperienceAsync();
     // STEP 14b: Set the above createScene() function to async (important, or this will not work)
+    // Initialize XR experience with default experience helper.
+
+    // Create a default environment for the scene.
+    scene.createDefaultEnvironment();
+    // Let's try WebXR...
+    const xrHelper = await scene.createDefaultXRExperienceAsync();
+    if (!xrHelper.baseExperience) {
+        // XR support is unavailable.
+        console.log('WebXR support is unavailable');
+    } else {
+        // XR support is available; proceed.
+        return scene;
+    }
 
     // Return the scene
-    return scene;
-}
+    // return scene;
+};
 
 // Call the createScene function
 const scene = createScene();
