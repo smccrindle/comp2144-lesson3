@@ -3,15 +3,15 @@ const canvas = document.getElementById("renderCanvas");
 // Create the BABYON 3D engine, and attach it to the canvas
 const engine = new BABYLON.Engine(canvas, true);
 // The createScene function
-const createScene = function() {
+const createScene = async function() {
     // Create a new BABYLON scene, passing in the engine as an argument
     const scene = new BABYLON.Scene(engine);
     
     // Add a camera and allow it to control the canvas
-    // const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
-    // camera.attachControl(canvas, true);
-    // Replace the above two lines of code for the camera with the below XR if you have a headset
+    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
+    camera.attachControl(canvas, true);
     
+
     // Include a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
     
@@ -89,6 +89,10 @@ const createScene = function() {
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
     // const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, { loop: true, autoplay: true });
     
+    // STEP 14a: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
+    const xrHelper = await scene.createDefaultXRExperienceAsync();
+    // STEP 14b: Set the above createScene() function to async (important, or this will not work)
+
     // Return the scene
     return scene;
 }
@@ -103,22 +107,3 @@ engine.runRenderLoop(function(){
 window.addEventListener("resize", function() {
     engine.resize();
 })
-
-// Check for WebXR support
-if (BABYLON.WebXRSessionManager) {
-    const xr = await BABYLON.WebXRSessionManager.CreateDefaultXRExperience(engine);
-    const camera = xr.baseExperience.camera; 
-  
-    // Create a custom UI element for the "Enter VR" button
-    const enterVRButton = document.createElement('button');
-    enterVRButton.textContent = "Enter VR";
-    enterVRButton.style.position = 'absolute';
-    enterVRButton.style.bottom = '20px';
-    enterVRButton.style.right = '20px';
-    document.body.appendChild(enterVRButton);
-  
-    // Handle button click to request VR mode
-    enterVRButton.addEventListener('click', () => {
-      xr.baseExperience.enterVRAsync(); 
-    });
-} 
