@@ -3,7 +3,7 @@ const canvas = document.getElementById("renderCanvas");
 // Create the BABYON 3D engine, and attach it to the canvas
 const engine = new BABYLON.Engine(canvas, true);
 // The createScene function
-const createScene = async function() {
+const createScene = function() {
     // Create a new BABYLON scene, passing in the engine as an argument
     const scene = new BABYLON.Scene(engine);
     
@@ -11,7 +11,6 @@ const createScene = async function() {
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
     camera.attachControl(canvas, true);
     
-
     // Include a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
     
@@ -94,20 +93,8 @@ const createScene = async function() {
     // STEP 14b: Set the above createScene() function to async (important, or this will not work)
     // Initialize XR experience with default experience helper.
 
-    // Create a default environment for the scene.
-    scene.createDefaultEnvironment();
-    // Let's try WebXR...
-    const xrHelper = await scene.createDefaultXRExperienceAsync();
-    if (!xrHelper.baseExperience) {
-        // XR support is unavailable.
-        console.log('WebXR support is unavailable');
-    } else {
-        // XR support is available; proceed.
-        return scene;
-    }
-
     // Return the scene
-    // return scene;
+    return scene;
 };
 
 // Call the createScene function
