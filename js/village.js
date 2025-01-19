@@ -12,6 +12,8 @@ const createScene = function() {
     // camera.attachControl(canvas, true);
     // Replace the above two lines of code for the camera with the below XR if you have a headset
     const xr = scene.createDefaultXRExperienceAsync();
+    const featureManager = xr.baseExperience.featuresManager;
+    featureManager.enableFeature(BABYLON.WebXRFeatureName.MOVEMENT); 
     
     // Include a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
