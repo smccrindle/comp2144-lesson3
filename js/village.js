@@ -93,16 +93,6 @@ const createScene = function() {
     return scene;
 }
 
-// Fire up the XR session
-const xr = await scene.createDefaultXRExperienceAsync({ 
-    // ... other options
-    uiOptions: { 
-        sessionMode: BABYLON.WebXRSessionMode.IMMERSIVE_VR 
-    } 
-});
-const featureManager = xr.baseExperience.featuresManager;
-featureManager.enableFeature(BABYLON.WebXRFeatureName.MOVEMENT);
-
 // Call the createScene function
 const scene = createScene();
 // Use the runRenderLoop() method to render the scene repeatedly
@@ -113,3 +103,22 @@ engine.runRenderLoop(function(){
 window.addEventListener("resize", function() {
     engine.resize();
 })
+
+// Check for WebXR support
+if (BABYLON.WebXRSessionManager) {
+    const xr = await BABYLON.WebXRSessionManager.CreateDefaultXRExperience(engine);
+    const camera = xr.baseExperience.camera; 
+  
+    // Create a custom UI element for the "Enter VR" button
+    const enterVRButton = document.createElement('button');
+    enterVRButton.textContent = "Enter VR";
+    enterVRButton.style.position = 'absolute';
+    enterVRButton.style.bottom = '20px';
+    enterVRButton.style.right = '20px';
+    document.body.appendChild(enterVRButton);
+  
+    // Handle button click to request VR mode
+    enterVRButton.addEventListener('click', () => {
+      xr.baseExperience.enterVRAsync(); 
+    });
+} 
