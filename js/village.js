@@ -84,10 +84,8 @@ const createScene = async function() {
     // STEP 13b: Yikes - now the two meshes share the same material - we must allow multiple materials within the same mesh
     const house = BABYLON.Mesh.MergeMeshes([box, roof], true, false, null, false, true);
 
-    // STEP 4a: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
+    // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
     const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, { loop: true, autoplay: true });
-    // STEP 4b: Position the sound
-    sound.setLocalPosition(new BABYLON.Vector3(0, 0, 0));
     
     // STEP 14a: Set the above createScene() function to async (important, or this will not work)
     // STEP 14b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
