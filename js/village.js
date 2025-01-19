@@ -8,10 +8,10 @@ const createScene = function() {
     const scene = new BABYLON.Scene(engine);
     
     // Add a camera and allow it to control the canvas
-    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
-    camera.attachControl(canvas, true);
+    // const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
+    // camera.attachControl(canvas, true);
     // Replace the above two lines of code for the camera with the below XR if you have a headset
-    // const xr = scene.createDefaultXRExperienceAsync();
+    const xr = scene.createDefaultXRExperienceAsync();
     
     // Include a light
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
