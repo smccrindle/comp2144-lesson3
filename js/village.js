@@ -84,11 +84,21 @@ const createScene = async function() {
     // STEP 13b: Yikes - now the two meshes share the same material - we must allow multiple materials within the same mesh
     const house = BABYLON.Mesh.MergeMeshes([box, roof], true, false, null, false, true);
 
+    // STEP 14: Create another instance of the house object and place it elsewhere on the ground
+    let house2 = house.createInstance("house2");
+    house2.position.x = 0;
+    house2.position.y = 0;
+    house2.position.z = -4;
+    house2.rotation.y = BABYLON.Tools.ToRadians(45);
+
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
-    const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, { loop: true, autoplay: true });
+    const sound = new BABYLON.Sound("birds", "../media/chirping-birds-ambience-217410.mp3", scene, null, {
+        loop: true,
+        autoplay: true
+    });
     
-    // STEP 14a: Set the above createScene() function to async (important, or this will not work)
-    // STEP 14b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
+    // STEP 15a: Set the above createScene() function to async (important, or this will not work)
+    // STEP 15b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
     const xr = await scene.createDefaultXRExperienceAsync({
         floorMeshes: [ground],
         optionalFeatures: true
