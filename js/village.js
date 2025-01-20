@@ -92,7 +92,7 @@ const createScene = async function() {
     house2.rotation.y = BABYLON.Tools.ToRadians(45);
 
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
-    const sound = new BABYLON.Sound("birds", "./comp2144-lesson3/media/chirping-birds-ambience-217410.mp3", scene, null, {
+    const sound = new BABYLON.Sound("birds", "./media/chirping-birds-ambience-217410.mp3", scene, null, {
         loop: true,
         autoplay: true
     });
