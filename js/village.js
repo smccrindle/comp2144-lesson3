@@ -91,15 +91,19 @@ const createScene = async function() {
     house2.position.z = -4;
     house2.rotation.y = BABYLON.Tools.ToRadians(45);
 
-    // STEP XX: Drop in a tree (https://free3d.com/3d-model/low_poly_tree-816203.html by kipris, converted to .glb with https://convert3d.org/)
+// STEP 15a: Let's go get a 3D model of a tree (https://free3d.com/3d-model/low_poly_tree-816203.html by kipris)
+    // STEP 15b: Unzip the archive, then look at all the file formats - we will use the popular .obj file format and attempt to convert it to a .glb file using Convert3D (https://convert3d.org/)
+    // STEP 15c: Note that the colour and material information has been dumped - let's try the .dae file (Collada - an open source XML 3D model format) - download the .glb file to a /media folder locally
+    // STEP 15d: Drop the tree into the scene using the ImportMeshAsync method (note that the tree is very, very tiny)
     const tree = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "Lowpoly_tree.glb").then((result) => {
-        result.meshes[0].position.x = -2;
-        result.meshes[0].position.y = 0;
         result.meshes[0].scaling.x = 150;         
         result.meshes[0].scaling.y = 150;         
         result.meshes[0].scaling.z = 150;         
+        result.meshes[0].position.x = -2;
+        result.meshes[0].position.y = 0;
     });
-
+    // STEP 16a: Scale the mesh object x, y, and z by 150 times
+    // STEP 16b: Move it over a bit with -2 for the x position
 
     // STEP 4: Add some ambient sounds ("Chirping Birds Ambience" by Alex from Pixabay - https://pixabay.com/sound-effects/search/birds%20chirping/)
     const sound = new BABYLON.Sound("birds", "./media/chirping-birds-ambience-217410.mp3", scene, null, {
@@ -107,12 +111,12 @@ const createScene = async function() {
         autoplay: true
     });
     
-    // STEP 15a: Set the above createScene() function to async (important, or this will not work)
-    // STEP 15b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
-    const xr = await scene.createDefaultXRExperienceAsync({
-        floorMeshes: [ground],
-        optionalFeatures: true
-    });
+    // STEP 17a: Set the above createScene() function to async (important, or this will not work)
+    // STEP 17b: Create the xrHelper to allow the visitor to choose WebXR if they are able and they'd like
+    // const xr = await scene.createDefaultXRExperienceAsync({
+    //     floorMeshes: [ground],
+    //     optionalFeatures: true
+    // });
 
     // Return the scene
     return scene;
